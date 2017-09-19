@@ -60,8 +60,8 @@ bindOptional f (Full n) = f n
   Optional a
   -> a
   -> a
-(??) =
-  error "todo: Course.Optional#(??)"
+(??) Empty x = x
+(??) (Full n) _ = n
 
 -- | Try the first optional for a value. If it has a value, use it; otherwise,
 -- use the second value.
@@ -81,8 +81,10 @@ bindOptional f (Full n) = f n
   Optional a
   -> Optional a
   -> Optional a
-(<+>) =
-  error "todo: Course.Optional#(<+>)"  
+
+(<+>) Empty Empty = Empty
+(<+>) Empty (Full x) = Full x
+(<+>) (Full x) _ = Full x
 
 applyOptional :: Optional (a -> b) -> Optional a -> Optional b
 applyOptional f a = bindOptional (\f' -> mapOptional (\a' -> f' a') a) f
