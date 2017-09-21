@@ -217,8 +217,7 @@ flatMap f (x:. xs) = (++) (f x) (flatMap f xs)
 flattenAgain ::
   List (List a)
   -> List a
-flattenAgain Nil = Nil
--- flattenAgain (x :. xs) = (++) (flatMap (\(y:.yx)->(++)y) x) (flattenAgain xs)
+flattenAgain = flatMap id
 -- | Convert a list of optional values to an optional list of values.
 --
 -- * If the list contains all `Full` values, 
